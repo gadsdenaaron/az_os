@@ -1,0 +1,15 @@
+print_string:
+pusha ;put all register values onto the stack for later when returning
+mov ah , 0x0e ; set up for printing
+
+print_char:
+mov al, [bx] ;put the character you want to print in al
+cmp al,0
+je end
+int 0x10 ;print the contents of al
+inc bx ;next character in string
+jmp print_char ;go back to start of this subroutine
+
+end:
+popa ;restore register values before exiting function
+ret
